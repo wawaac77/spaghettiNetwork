@@ -153,9 +153,11 @@ int isMatch (string rule, vector<bitset<8>> packetArray) {
 int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> network, std::vector<std::string> routingTable, std::vector<bitset<8>> packetArray, std::vector<int> interfaces) {
     cout <<"start ****** " << start << endl;
     
+    /*
     for (int i = 0; i < used.end() - used.begin(); i++) {
         cout << "used[i]" << i << " " << used[i] << endl;
     }
+     */
     
     if (used[start]) {
         return -1;
@@ -194,8 +196,8 @@ int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> networ
                         maxi = i;
                         maxParameters = currentParameters;
                     } else if (matchNum == max) {
-                        if (currentParameters[2] < maxParameters[2]) {
-                            max = matchNum;
+                        if  (network[currentParameters[2]] < network[maxParameters[2]]) {
+                            //max = matchNum;
                             maxi = i;
                             maxParameters = currentParameters;
                         }
