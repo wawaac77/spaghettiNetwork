@@ -178,7 +178,8 @@ int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> networ
             vector<long> currentParameters = getParameters(routingTable[i]);
             
             cout << i <<" matchNum " << matchNum <<endl;
-            if (matchNum != -1 && network[currentParameters[2]] != -1) { // if find match
+            //
+            if (matchNum != -1 &&  network[currentParameters[2]] != -1) { // if find match
                 
                 if (maxWeight < currentParameters[1]) {
                     maxWeight = currentParameters[1];
@@ -216,16 +217,24 @@ int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> networ
         return start;
     } else {
         int newStart = network[maxParameters[2]];
+        
+        if (newStart == -1) {
+            return start;
+        }
         cout << "max !!!!new!!!!!!! " << max <<endl;
         cout << "maxi !!!!new!!!!!!! " << maxParameters[2] <<endl;
         cout << "newStart !!!!!!!!!!! " << newStart <<endl;
         
         int newRouterNum;
+        /*
         if (newStart > routingTable.end() - routingTable.begin() - 1) {
             newRouterNum = interfaces[newStart];
         } else {
             newRouterNum = findRouterNum(routingTable[newStart]);
         }
+         */
+        
+        newRouterNum = interfaces[newStart];
         
         /*
         //int newRouterNum = interfaces[newStart];
@@ -294,6 +303,7 @@ int main(int argc, const char * argv[]) {
 
      */
     
+    
     std::vector<int> interfaces = {0, 0, 1, 1, 2, 2};
     std::vector<int> network = {2, 4, 0, 5, 1, 3};
     std::vector<std::string> routingTable =
@@ -302,7 +312,7 @@ int main(int argc, const char * argv[]) {
         "2,10.20.30.0,24,10,4"};
     
     std::string packet = "2,10.20.30.40";
-
+    
     
     
     cout << "***********" << endl;
