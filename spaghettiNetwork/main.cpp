@@ -140,10 +140,26 @@ int isMatch (string rule, vector<bitset<8>> packetArray) {
     }
     
     for (int i = 0; i < oneByOneNum; i++) {
+        
+        cout<<" - " << binaryNums[groupNum][7 - i] ;
         if (binaryNums[groupNum][7 - i] != packetArray[groupNum][7 - i]) {
             return -1;
         }
     }
+    
+    /*
+    for (int i = 0; i < 8; i++) {
+        cout<<" - " << binaryNums[0][7 - i] ;
+    }
+    
+    cout << endl;
+    
+    for (int i = 0; i < 8; i++) {
+        cout<<" - " << binaryNums[0][i] ;
+    }
+    cout << endl;
+    cout << "~~~~~~~~~~~~~~" << endl;
+    */
     
     return parameters[0];
     
@@ -167,14 +183,19 @@ int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> networ
     int maxi = -1;
     int maxWeight = -1;
     vector<long> maxParameters;
-
   
+    bool found = false;
     for (int i = 0; i < routingTable.end() - routingTable.begin() ; i++ ) {
-        cout << i << endl;
-        cout << "findRouterNum(routingTable[i])  " << i << " " << findRouterNum(routingTable[i]) << endl;
-        // if router correct
-        if (start == findRouterNum(routingTable[i])) {
         
+        long foundNum = findRouterNum(routingTable[i]);
+        
+        if (found == true && start != foundNum) {
+            break;
+        }
+        
+        if (start == foundNum) {
+            found = true;
+            
             int matchNum = isMatch(routingTable[i], packetArray); //find match or not
         
             vector<long> currentParameters = getParameters(routingTable[i]);
@@ -258,7 +279,7 @@ int main(int argc, const char * argv[]) {
     // insert code here...
    
     
-    /*
+    
     std::vector<int> interfaces = {0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3};
     std::vector<int> network = {12, 4, -1, -1, 1, 13, 8, 9, 6, 7, 14, -1, 0, 5, 10, -1};
     std::vector<std::string> routingTable =
@@ -277,8 +298,8 @@ int main(int argc, const char * argv[]) {
                                              "2,0.0.0.0,0,50,11",
                                              "3,0.0.0.0,0,10,12"};
     
-    std::string packet = "0,10.12.7.3";
-    */
+    std::string packet = "0,10.12.7.17";
+    
     
     /*
     std::vector<int> interfaces = {0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5};
@@ -305,7 +326,7 @@ int main(int argc, const char * argv[]) {
 
      */
     
-    
+    /*
     std::vector<int> interfaces = {0, 0, 1, 1, 2, 2};
     std::vector<int> network = {2, 4, 0, 5, 1, 3};
     std::vector<std::string> routingTable =
@@ -314,7 +335,7 @@ int main(int argc, const char * argv[]) {
         "2,10.20.30.0,24,10,4"};
     
     std::string packet = "2,10.20.30.40";
-    
+    */
     
     
     cout << "***********" << endl;
