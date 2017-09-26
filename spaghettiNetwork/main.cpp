@@ -169,15 +169,16 @@ int isMatch (string rule, vector<bitset<8>> packetArray) {
 int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> network, std::vector<std::string> routingTable, std::vector<bitset<8>> packetArray, std::vector<int> interfaces) {
     cout <<"start ****** " << start << endl;
     
-    /*
+    
     for (int i = 0; i < used.end() - used.begin(); i++) {
         cout << "used[i]" << i << " " << used[i] << endl;
     }
-     */
+    
     
     if (used[start]) {
         return -1;
     }
+    
     
     int max = -1; //try to find max
     int maxi = -1;
@@ -217,7 +218,8 @@ int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> networ
                         maxi = i;
                         maxParameters = currentParameters;
                     } else if (matchNum == max) {
-                        if  (network[currentParameters[2]] < network[maxParameters[2]]) {
+                        //if  (network[currentParameters[2]] < network[maxParameters[2]]) {
+                        if  (currentParameters[2] < maxParameters[2]) {
                             //max = matchNum;
                             maxi = i;
                             maxParameters = currentParameters;
@@ -233,12 +235,23 @@ int searchFinalRouter(int start, std::vector<bool> used, std::vector<int> networ
     }
     
     vector<bool> newUsed = used;
+    
+    
     newUsed[start] = 1;
-    cout << "newUsed[start]  " << newUsed[start] << "  start "<< start << endl;
+   
     
     if (max == -1) {
         return start;
     } else {
+        
+        /*
+        if (used[maxi]) {
+            return -1;
+        }
+        
+        newUsed[maxi] = 1;
+        */
+        
         int newStart = network[maxParameters[2]];
         
         if (newStart == -1) {
